@@ -5,9 +5,29 @@ import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { useState } from 'react';
 
+type Project = {
+  id: number;
+  title: string;
+  category: string;
+  type: string;
+  client: string;
+  year: string;
+  description: string;
+  challenge: string;
+  solution: string;
+  results: string[];
+  image: string;
+  tags: string[];
+};
+
+
 export default function DesignPage() {
+
+
+
+
   const [activePortfolioTab, setActivePortfolioTab] = useState('all');
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const portfolioCategories = [
     { id: 'all', name: 'All Projects' },
@@ -198,16 +218,16 @@ export default function DesignPage() {
     }
   ];
 
-  const filteredProjects = activePortfolioTab === 'all' 
-    ? projects 
+  const filteredProjects = activePortfolioTab === 'all'
+    ? projects
     : projects.filter(project => project.category === activePortfolioTab);
 
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       {/* Hero Section */}
-      <section 
+      <section
         className="relative min-h-screen flex items-center justify-center text-white"
         style={{
           backgroundImage: `linear-gradient(rgba(31, 61, 58, 0.8), rgba(31, 61, 58, 0.8)), url('https://readdy.ai/api/search-image?query=Ethiopian%20creative%20design%20studio%20with%20designers%20working%20on%20UI%2FUX%20projects%20and%20brand%20identity%20designs%2C%20modern%20creative%20workspace%20with%20design%20tools%2C%20multiple%20monitors%20showing%20design%20work%2C%20contemporary%20office%20environment%20with%20creative%20materials%20and%20professional%20atmosphere&width=1920&height=1080&seq=designhero&orientation=landscape')`,
@@ -301,11 +321,10 @@ export default function DesignPage() {
               <button
                 key={category.id}
                 onClick={() => setActivePortfolioTab(category.id)}
-                className={`px-6 py-3 rounded-full transition-colors whitespace-nowrap cursor-pointer ${
-                  activePortfolioTab === category.id
-                    ? 'bg-[#1F3D3A] text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`px-6 py-3 rounded-full transition-colors whitespace-nowrap cursor-pointer ${activePortfolioTab === category.id
+                  ? 'bg-[#1F3D3A] text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
               >
                 {category.name}
               </button>
@@ -316,7 +335,7 @@ export default function DesignPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <div key={project.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div 
+                <div
                   className="h-48 bg-gray-200"
                   style={{
                     backgroundImage: `url('${project.image}')`,
@@ -368,7 +387,7 @@ export default function DesignPage() {
                 </button>
               </div>
 
-              <div 
+              <div
                 className="h-64 rounded-xl mb-6"
                 style={{
                   backgroundImage: `url('${selectedProject.image}')`,
@@ -581,7 +600,7 @@ export default function DesignPage() {
               }
             ].map((member, index) => (
               <div key={index} className="bg-white rounded-2xl shadow-lg p-6 text-center">
-                <div 
+                <div
                   className="w-24 h-24 rounded-full mx-auto mb-4"
                   style={{
                     backgroundImage: `url('${member.image}')`,
